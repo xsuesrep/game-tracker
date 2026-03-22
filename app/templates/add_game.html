@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="card p-4 bg-dark text-white shadow" style="width:450px;">
+
+        <h3 class="text-center mb-4">
+            <i class="bi bi-plus-circle"></i> Add Game
+        </h3>
+
+        <form method="POST">
+
+            <!-- 🎮 Game Name -->
+            <label>Game Name</label>
+            <input type="text" name="name" class="form-control mb-3" required>
+
+            <!-- 🎯 Genre -->
+            <label>Genre</label>
+            <select name="genre" class="form-control mb-3">
+                <option>Action</option>
+                <option>RPG</option>
+                <option>Open World</option>
+                <option>FPS</option>
+                <option>Strategy</option>
+                <option>Adventure</option>
+            </select>
+
+            <!-- ⭐ Rating -->
+            <label>Rating</label>
+            <select name="rating" class="form-control mb-3">
+                <option value="1">⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="5">⭐⭐⭐⭐⭐</option>
+            </select>
+
+            <!-- 🎮 Platform -->
+            <label>Platform</label>
+            <select name="platform" class="form-control mb-3">
+                <option>PC</option>
+                <option>PlayStation</option>
+                <option>Xbox</option>
+                <option>Mobile</option>
+            </select>
+
+            <!-- 📊 Status -->
+            <label>Status</label>
+            <select name="status" class="form-control mb-3">
+                <option>Playing</option>
+                <option>Completed</option>
+                <option>Plan to Play</option>
+            </select>
+
+            <!-- 🖼️ Image URL -->
+           <label>Image URL</label>
+           <input type="text" name="image_url" class="form-control mb-3" placeholder="https://image-link.com">
+
+            <!-- 📝 Note -->
+            <label>Note</label>
+            <textarea name="note" class="form-control mb-3"></textarea>
+
+            <!-- 💾 Save -->
+            <button class="btn btn-success w-100">
+                <i class="bi bi-check"></i> Save Game
+            </button>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

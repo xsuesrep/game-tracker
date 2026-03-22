@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="card p-4 bg-dark text-white shadow" style="width:450px;">
+
+        <h3 class="text-center mb-4">
+            <i class="bi bi-pencil-square"></i> Edit Game
+        </h3>
+
+        <form method="POST">
+
+            <!-- 🎮 Game Name -->
+            <label>Game Name</label>
+            <input type="text" name="name" value="{{ game.name }}" class="form-control mb-3" required>
+
+            <!-- 🎯 Genre -->
+            <label>Genre</label>
+            <select name="genre" class="form-control mb-3">
+                <option {% if game.genre == "Action" %}selected{% endif %}>Action</option>
+                <option {% if game.genre == "RPG" %}selected{% endif %}>RPG</option>
+                <option {% if game.genre == "Open World" %}selected{% endif %}>Open World</option>
+                <option {% if game.genre == "FPS" %}selected{% endif %}>FPS</option>
+                <option {% if game.genre == "Strategy" %}selected{% endif %}>Strategy</option>
+                <option {% if game.genre == "Adventure" %}selected{% endif %}>Adventure</option>
+            </select>
+
+            <!-- ⭐ Rating -->
+            <label>Rating</label>
+            <select name="rating" class="form-control mb-3">
+                <option value="1" {% if game.rating == 1 %}selected{% endif %}>⭐</option>
+                <option value="2" {% if game.rating == 2 %}selected{% endif %}>⭐⭐</option>
+                <option value="3" {% if game.rating == 3 %}selected{% endif %}>⭐⭐⭐</option>
+                <option value="4" {% if game.rating == 4 %}selected{% endif %}>⭐⭐⭐⭐</option>
+                <option value="5" {% if game.rating == 5 %}selected{% endif %}>⭐⭐⭐⭐⭐</option>
+            </select>
+
+            <!-- 🎮 Platform -->
+            <label>Platform</label>
+            <select name="platform" class="form-control mb-3">
+                <option {% if game.platform == "PC" %}selected{% endif %}>PC</option>
+                <option {% if game.platform == "PlayStation" %}selected{% endif %}>PlayStation</option>
+                <option {% if game.platform == "Xbox" %}selected{% endif %}>Xbox</option>
+                <option {% if game.platform == "Mobile" %}selected{% endif %}>Mobile</option>
+            </select>
+
+            <!-- 📊 Status -->
+            <label>Status</label>
+            <select name="status" class="form-control mb-3">
+                <option {% if game.status == "Playing" %}selected{% endif %}>Playing</option>
+                <option {% if game.status == "Completed" %}selected{% endif %}>Completed</option>
+                <option {% if game.status == "Plan to Play" %}selected{% endif %}>Plan to Play</option>
+            </select>
+
+            <!-- 📝 Note -->
+            <label>Note</label>
+            <textarea name="note" class="form-control mb-3">{{ game.note }}</textarea>
+
+            <!-- 💾 Update -->
+            <button class="btn btn-warning w-100">
+                <i class="bi bi-check2"></i> Update Game
+            </button>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

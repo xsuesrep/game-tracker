@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5" style="max-width:500px;">
+
+    <div class="card p-4 shadow-lg bg-dark text-white">
+
+        <h3 class="mb-4 text-center">⚙️ Add Performance</h3>
+
+        <form method="POST">
+
+            <div class="mb-3">
+                <label class="form-label">Graphics</label>
+                <select name="graphics" class="form-control">
+                    <option>Low</option>
+                    <option>Medium</option>
+                    <option>High</option>
+                    <option>Ultra</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">FPS</label>
+                <input type="number" name="fps" class="form-control" placeholder="Enter FPS" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Resolution</label>
+                <select name="resolution" class="form-control">
+                   <option>720p</option>
+                   <option>1080p</option>
+                   <option>1440p</option>
+                   <option>4K</option>
+            </select>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">Save Performance</button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

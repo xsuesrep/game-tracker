@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <!-- 🎮 Banner -->
+    <div class="position-relative mb-4">
+        <img src="{{ game.image_url }}" class="w-100" 
+             style="height:300px; object-fit:cover; border-radius:15px; filter:brightness(70%);">
+
+        <!-- overlay -->
+        <div class="position-absolute bottom-0 start-0 p-4">
+            <h1 class="fw-bold">{{ game.name }}</h1>
+            <p class="text-light">{{ game.genre }}</p>
+        </div>
+    </div>
+
+    <!-- 📊 Content -->
+    <div class="row">
+
+        <!-- 📝 Left -->
+        <div class="col-md-8">
+           
+            <div class="card p-4 bg-dark text-white shadow">
+
+                <h4 class="mb-3">
+                    <i class="bi bi-info-circle"></i> Game Info
+                </h4>
+
+            <div class="card p-4 bg-dark text-white shadow">
+
+              
+
+                <p><strong>🎮 Genre:</strong> {{ game.genre }}</p>
+
+                <p><strong>⭐ Rating:</strong>
+                    {% for i in range(game.rating or 0) %}
+                        ⭐
+                    {% endfor %}
+                </p>
+
+                <p><strong>🖥️ Platform:</strong> {{ game.platform or "N/A" }}</p>
+
+                <p><strong>📊 Status:</strong> {{ game.status or "N/A" }}</p>
+
+                <p><strong>📝 Note:</strong> {{ game.note or "No note" }}</p>
+
+            </div>
+
+                <p class="text-muted">
+                    This is your saved game. You can track performance and FPS here.
+                </p>
+
+            </div>
+        </div>
+
+        <!-- ⚙️ Right (FPS) -->
+        <div class="col-md-4">
+            <div class="card p-4 bg-dark text-white shadow">
+
+                <h4 class="mb-3">
+                    <i class="bi bi-speedometer2"></i> Performance
+                </h4>
+
+                <ul class="list-group list-group-flush">
+
+                    {% for perf in game.performances %}
+                    <li class="list-group-item bg-dark text-white border-secondary">
+                        ⚙️ {{ perf.graphics_setting }} <br>
+                        🚀 {{ perf.fps }} FPS <br>
+                        🖥️ {{ perf.resolution }}
+                    </li>
+                    {% else %}
+                    <li class="text-muted">No FPS data</li>
+                    {% endfor %}
+
+                </ul>
+
+                <a href="/add-performance/{{ game.id }}" class="btn btn-info mt-3">
+                    <i class="bi bi-plus"></i> Add FPS
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 🔙 Back -->
+    <div class="mt-4">
+        <a href="/home" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Back
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

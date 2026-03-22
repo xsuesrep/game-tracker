@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card p-4 bg-dark text-white shadow-lg">
+
+        <!-- 👤 User -->
+        <h2 class="fw-bold mb-3">👤 {{ current_user.username }}</h2>
+
+        <!-- 📊 Stats -->
+        <p class="text-muted">Total Games: {{ games|length }}</p>
+
+        <hr>
+
+        <!-- 🎮 Game List -->
+        <h4 class="mb-3"> Your Games</h4>
+
+        <div class="row">
+            {% for game in games %}
+            <div class="col-md-3 mb-3">
+                <div class="card p-2">
+
+                    <img src="{{ game.image_url }}" class="game-img mb-2">
+                    <img src="https://api.dicebear.com/7.x/initials/svg?seed={{ current_user.username }}" 
+                    style="width:80px; border-radius:50%; margin-bottom:10px;">
+                    
+                    <h6>{{ game.name }}</h6>
+                    <small class="text-muted">{{ game.genre }}</small>
+
+                </div>
+            </div>
+            {% else %}
+                <p>No games yet...</p>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
