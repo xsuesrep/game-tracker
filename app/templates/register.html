@@ -2,24 +2,171 @@
 
 {% block content %}
 
-<h2 class="mb-4">
-    <i class="bi bi-person-plus"></i> Register
-</h2>
+<style>
 
-<form method="POST">
-    <div class="mb-3">
-        <label>Username</label>
-        <input type="text" name="username" class="form-control" required>
+/* 🌌 Background */
+.register-bg {
+    position: fixed;
+    inset: 0;
+    background: #0a0a0a;
+    z-index: -1;
+    overflow: hidden;
+}
+
+/* ⚫⚪ blobs */
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.25;
+}
+
+.blob1 { width:300px; height:300px; background:#fff; top:-50px; left:-50px; }
+.blob2 { width:250px; height:250px; background:#777; bottom:50px; left:100px; }
+.blob3 { width:300px; height:300px; background:#fff; right:50px; top:100px; }
+.blob4 { width:200px; height:200px; background:#555; right:200px; bottom:50px; }
+
+/* 💎 Glass Card (แก้ contrast ให้ชัด) */
+.glass-card {
+    width: 380px;
+    padding: 25px;
+    border-radius: 15px;
+    background: rgba(0,0,0,0.7);   /* 🔥 เข้มขึ้น = อ่านชัด */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 10px 30px rgba(48, 48, 48, 0.6);
+    color: #f1f5f9;
+}
+
+/* ✨ Inputs */
+.form-control {
+    background: rgba(43, 42, 42, 0.6);
+    border: 1px solid #444;
+    color: #fff;
+}
+
+.form-control:focus {
+    background: rgba(43, 42, 42, 0.8);
+    border-color: #888;
+    box-shadow: none;
+}
+
+.form-control::placeholder {
+    color: #aaa;
+}
+
+/* label */
+label {
+    color: #e5e7eb;
+}
+
+/* 🔘 Button */
+.btn-register {
+    background: #fff;
+    color: #000;
+    border: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-register:hover {
+    background: #ddd;
+}
+
+/* 🧊 Layout */
+.register-wrapper {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* link */
+.auth-link {
+    color: #cbd5e1;
+}
+
+.auth-link:hover {
+    color: #fff;
+}
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;               
+    transform: translateY(-50%);  
+    cursor: pointer;
+    color: #0c0c0c;
+    font-size: 18px;
+}
+
+.toggle-password:hover {
+    color: #333232;
+}
+
+</style>
+
+<!-- 🌌 Background -->
+<div class="register-bg">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+    <div class="blob blob4"></div>
+</div>
+
+<!-- 💎 Form -->
+<div class="register-wrapper">
+
+    <div class="glass-card">
+
+        <h3 class="text-center mb-4">
+            <i class="bi bi-person-plus"></i> Register
+        </h3>
+
+        <form method="POST">
+
+            <div class="mb-3">
+                <label>Username</label>
+                <input type="text" name="username" class="form-control" required>
+            </div>
+
+            <label>Password</label>
+ 
+            <div class="position-relative mb-3">
+                <input type="password" id="password" name="password" class="form-control pe-5" required>
+
+                 <i class="bi bi-eye-slash toggle-password" id="togglePassword"></i>
+            </div>
+
+            <button class="btn btn-register w-100">
+                Register
+            </button>
+
+        </form>
+
+        <p class="text-center mt-3">
+            <a href="/login" class="auth-link">
+                Already have account? Login
+            </a>
+        </p>
+
     </div>
 
-    <div class="mb-3">
-        <label>Password</label>
-        <input type="password" name="password" class="form-control" required>
-    </div>
+</div>
+<script>
+const toggle = document.getElementById('togglePassword');
+const password = document.getElementById('password');
 
-    <button class="btn btn-success">Register</button>
-</form>
+toggle.addEventListener('click', function () {
 
-<a href="/login">Already have account? Login</a>
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+
+    // เปลี่ยน icon
+    this.classList.toggle('bi-eye');
+    this.classList.toggle('bi-eye-slash');
+
+});
+</script>
+
 
 {% endblock %}

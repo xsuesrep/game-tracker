@@ -2,23 +2,146 @@
 
 {% block content %}
 
+<style>
+
+/* 🌌 Background */
+.home-bg {
+    position: fixed;
+    inset: 0;
+    background: #0a0a0a;
+    z-index: -1;
+    overflow: hidden;
+}
+
+/* ⚫⚪ blob */
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.3;
+}
+
+.blob1 {
+    width: 300px;
+    height: 300px;
+    background: #ffffff;
+    top: -50px;
+    left: -50px;
+}
+
+.blob2 {
+    width: 250px;
+    height: 250px;
+    background: #777;
+    bottom: 50px;
+    left: 100px;
+}
+
+.blob3 {
+    width: 300px;
+    height: 300px;
+    background: #fff;
+    right: 50px;
+    top: 100px;
+}
+
+.blob4 {
+    width: 200px;
+    height: 200px;
+    background: #555;
+    right: 200px;
+    bottom: 50px;
+}
+
+/* 💎 Glass Card */
+.glass-card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;
+    transition: 0.3s;
+    color: white;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255,255,255,0.2);
+}
+
+/* 🖼️ Image */
+.game-img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* 🔍 Search */
+.search-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid #333;
+    color: white;
+}
+
+.search-box::placeholder {
+    color: #888;
+}
+
+/* 🔘 Buttons */
+.btn-minimal {
+    background: transparent;
+    border: 1px solid #444;
+    color: #ddd;
+}
+
+.btn-minimal:hover {
+    background: #222;
+}
+
+/* ➕ Add button */
+.btn-add {
+    background: #fff;
+    color: #000;
+    border: none;
+}
+
+.btn-add:hover {
+    background: #ddd;
+}
+
+/* FPS text */
+.fps-list {
+    font-size: 13px;
+    color: #aaa;
+}
+
+</style>
+
+<!-- 🌌 Background -->
+<div class="home-bg">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+    <div class="blob blob4"></div>
+</div>
+
 <h1 class="mb-4">
     <i class="bi bi-controller"></i> Your Game List
 </h1>
 
 <form method="GET" action="/home" class="mb-4">
     <div class="input-group">
-        <span class="input-group-text">
+        <span class="input-group-text bg-dark border-0 text-white">
             <i class="bi bi-search"></i>
         </span>
-        <input type="text" name="q" class="form-control" placeholder="Search game...">
-        <button class="btn btn-primary">
-            <i class="bi bi-search"></i> Search
+        <input type="text" name="q" class="form-control search-box" placeholder="Search game...">
+        <button class="btn btn-minimal">
+            Search
         </button>
     </div>
 </form>
 
-<a href="/add-game" class="btn btn-primary mb-4">
+<a href="/add-game" class="btn btn-add mb-4">
     <i class="bi bi-plus-lg"></i> Add Game
 </a>
 
@@ -26,40 +149,41 @@
 
     {% for game in games %}
     <div class="col-md-3">
-        <div class="card p-2 mb-3 bg-dark text-white"
+
+        <div class="glass-card p-3 mb-4"
              onclick="window.location='/game/{{ game.id }}'"
              style="cursor:pointer;">
 
-           <img src="{{ game.image_url or 'https://via.placeholder.com/300x200?text=No+Image' }}"
+            <img src="{{ game.image_url or 'https://via.placeholder.com/300x200?text=No+Image' }}"
                  class="game-img mb-2">
 
             <h5>
                 <i class="bi bi-controller"></i> {{ game.name }}
             </h5>
 
-            <p>
+            <p style="color:#aaa;">
                 <i class="bi bi-tags"></i> {{ game.genre }}
             </p>
 
-            <!-- ปุ่ม -->
+            <!-- buttons -->
             <div class="d-flex gap-2 mb-2" onclick="event.stopPropagation();">
-                
-                <a href="/add-performance/{{ game.id }}" class="btn btn-sm btn-info">
+
+                <a href="/add-performance/{{ game.id }}" class="btn btn-minimal btn-sm">
                     <i class="bi bi-gear"></i>
                 </a>
 
-                <a href="/edit-game/{{ game.id }}" class="btn btn-warning btn-sm">
+                <a href="/edit-game/{{ game.id }}" class="btn btn-minimal btn-sm">
                     <i class="bi bi-pencil"></i>
                 </a>
 
-                <a href="/delete-game/{{ game.id }}" class="btn btn-danger btn-sm">
+                <a href="/delete-game/{{ game.id }}" class="btn btn-minimal btn-sm">
                     <i class="bi bi-trash"></i>
                 </a>
 
             </div>
 
             <!-- FPS -->
-            <ul class="small">
+            <ul class="fps-list">
                 {% for perf in game.performances %}
                     <li>
                         <i class="bi bi-speedometer2"></i>
@@ -71,7 +195,9 @@
             </ul>
 
         </div>
+
     </div>
+
     {% else %}
         <p>No games yet...</p>
     {% endfor %}
